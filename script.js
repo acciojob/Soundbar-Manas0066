@@ -1,22 +1,27 @@
-//your JS code here. If required.
-let currentAudio = null;
+let currentAudioElement = null;
 
 function playSound(name) {
   // stop previous audio if playing
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
+  if (currentAudioElement) {
+    currentAudioElement.pause();
+    currentAudioElement.currentTime = 0;
+    currentAudioElement.remove();
+    currentAudioElement = null;
   }
 
-  // create new audio
-  currentAudio = new Audio(`sounds/${name}.mp3`);
-  currentAudio.play();
+  // create new audio element and attach to DOM
+  currentAudioElement = document.createElement('audio');
+  currentAudioElement.src = `sounds/${name}.mp3`;
+  currentAudioElement.autoplay = true; // start playing immediately
+  currentAudioElement.id = 'current-audio'; // optional, for easier debugging
+  document.body.appendChild(currentAudioElement);
 }
 
 function stopSound() {
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    currentAudio = null;
+  if (currentAudioElement) {
+    currentAudioElement.pause();
+    currentAudioElement.currentTime = 0;
+    currentAudioElement.remove();
+    currentAudioElement = null;
   }
 }
